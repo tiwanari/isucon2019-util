@@ -1,0 +1,33 @@
+[core]
+	autocrlf = false
+	precomposeunicode = true
+	quotepath = false
+
+[color]
+	ui = auto
+
+[push]
+	default = current
+
+[alias]
+	a = add
+	st = status
+	sh = show
+	d = diff
+	di = diff
+	dh = diff HEAD
+	f = fetch --prune
+	ls = ls-files -t
+	cm = commit
+	cmm = commit -am
+	co = checkout
+	l = log
+	lg = log --graph
+	lo = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset'
+	b = branch
+	ba = branch -a
+	la = log --oneline --decorate --graph --branches --tags --remotes
+
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
