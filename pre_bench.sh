@@ -2,23 +2,22 @@
 
 set -eu
 
-LOG_DIR=/home/ubuntu/logs
+LOG_DIR=/home/isucon/logs
+echo "making $LOG_DIR ..."
 mkdir -p $LOG_DIR
 
 ACCESS_LOG=/var/log/nginx/access.log
 SUFFIX=`date +%Y%m%d-%H%M%S`
 
 ## Rotate access logs
-mv $ACCESS_LOG $LOG_DIR/access_$SUFFIX.log
+echo "copying and initializing $ACCESS_LOG ..."
+cp $ACCESS_LOG $LOG_DIR/access_$SUFFIX.log
+cat /dev/null > $ACCESS_LOG 
 
 ## Recompile the service
-# cd path; make
+echo "making go webapp ..."
+cd /home/isucon/isucari/webapp/go; make
 
 ## Restart the service
-# sudo systemctl restart isubata.golang
-
-## Run bench
-# cd ~/isubata/bench
-# OUT=$DIR/result_`date +%Y%m%d-%H%M%S`.json
-# TARGET=ec2-13-112-148-180.ap-northeast-1.compute.amazonaws.com
-# ./bin/bench -remotes=$TARGET -output $OUT
+echo "restarting go webapp ..."
+sudo systemctl restart isucari.golang.service
